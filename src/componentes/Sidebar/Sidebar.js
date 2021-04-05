@@ -38,7 +38,7 @@ const Sidebar = ({ rooms }) => {
             </WorkspaceContainer>
             <MainChannels>
                 {sidebarItems.map((items) => (
-                    <MainChannelItem>
+                    <MainChannelItem key={items.text}>
                         {items.icon}
                         {items.text}
                     </MainChannelItem>
@@ -54,7 +54,7 @@ const Sidebar = ({ rooms }) => {
                 </NewChanelContainer>
                 <ChannelsList>
                     {rooms.map((item) => (
-                        <Channel onClick={() => goToChannel(item.id)}>
+                        <Channel onClick={() => goToChannel(item.id)} key={item.name}>
                             # {item.name}
                         </Channel>
                     ))}

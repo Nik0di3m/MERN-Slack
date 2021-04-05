@@ -71,10 +71,15 @@ export const MessageSender = styled.div`
         outline: none;
     }
 
+    form{
+        display: flex;
+        width: 100%;
+        height: 90%;
+    }
     
 `
 
-export const SendMessage = styled.div`
+export const SendMessage = styled.button`
     background-color: white;
     width: 40px;
     height: 40px;
@@ -83,5 +88,9 @@ export const SendMessage = styled.div`
     justify-content: center;
     align-items: center;
     color: #350d36;
-    
+    border: none;
+    :focus{
+        border: none;
+        outline: none;
+    }
 `

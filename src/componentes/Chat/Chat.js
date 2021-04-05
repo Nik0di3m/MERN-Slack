@@ -17,15 +17,33 @@ import {
 import Message from './Message/Message';
 import db from '../../firebase';
 import { useParams } from 'react-router';
+import firebase from 'firebase'
 
 
 
-
-const Chat = () => {
+const Chat = ({ user }) => {
 
     let { channelId } = useParams();
 
-    const [channel, setChannel] = useState();
+    const [channel, setChannel] = useState([]);
+
+    const [messages, setMesseges] = useState([]);
+
+    const [input, setInput] = useState('');
+
+    const getMessages = () => {
+        db.collection('rooms')
+            .doc(channelId)
+            .collection('messages')
+            .orderBy('timestamp', 'asc')
+            .onSnapshot((snap) => {
+
+                let messages = snap.docs.map((doc) => doc.data());
+
+                setMesseges(messages)
+
+            })
+    }
 
     const getChannel = () => {
         db.collection('rooms')
@@ -35,8 +53,33 @@ const Chat = () => {
             })
     }
 
+    const sendMessage = (text) => {
+        if (channelId) {
+            let payload = {
+                text: text,
+                timestamp: firebase.firestore.Timestamp.now(),
+                user: user.name,
+                userImage: user.photo,
+            }
+            db.collection('rooms').doc(channelId).collection('messages').add(payload)
+        }
+    }
+
+    const submit = (e) => {
+        e.preventDefault();
+
+        if (!input) return;
+        sendMessage(input);
+        setInput('')
+
+
+
+    }
+
     useEffect(() => {
         getChannel();
+        getMessages();
+
     }, [channelId])
 
     return (
@@ -44,7 +87,7 @@ const Chat = () => {
             <ChatHeader>
                 <ChatDescriptions>
                     <ChatRoom>
-                        <h3># {channel.name}</h3>
+                        <h3># {channel.name} </h3>
                     </ChatRoom>
                     <ChatDesc>
                         {channel.desc}
@@ -57,13 +100,18 @@ const Chat = () => {
                     </ChatInfoIcon>
                 </ChatInfo>
             </ChatHeader>
-            <Message />
+            <Message messages={messages} />
             <MessageSenderContainer>
                 <MessageSender>
-                    <SendMessage>
-                        <SendIcon />
-                    </SendMessage>
-                    <input type="text" placeholder="#Channel 1..." />
+                    <form>
+                        <SendMessage
+                            type="submit"
+                            onClick={submit}
+                        >
+                            <SendIcon />
+                        </SendMessage>
+                        <input type="text" placeholder="Message..." onChange={(e) => setInput(e.target.value)} value={input} />
+                    </form>
                 </MessageSender>
             </MessageSenderContainer>
         </ChatContainer>

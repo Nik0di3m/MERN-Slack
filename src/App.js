@@ -36,8 +36,6 @@ function App() {
   }
 
 
-  console.log(user)
-
 
   return (
     <div className="app">
@@ -51,7 +49,7 @@ function App() {
               <Sidebar rooms={rooms} />
               <Switch>
                 <Route path='/room/:channelId'>
-                  <Chat />
+                  <Chat user={user} />
                 </Route>
                 <Route path="/">
                   Select or create channel
