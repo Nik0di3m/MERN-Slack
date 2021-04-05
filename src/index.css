@@ -1,5 +1,6 @@
 *{
   margin: 0;
+  
 
 }
 body {
@@ -9,8 +10,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-y: hidden;
-  min-height: 100vh;
+  overflow-y: hidden !important;
+  max-height: 100vh;
+  box-sizing: border-box;
 }
 
 code {

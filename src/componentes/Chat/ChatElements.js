@@ -5,6 +5,7 @@ export const ChatContainer = styled.div`
  background-color: #19051a;
  color: white;
  position: relative;
+ width: 100%;
  overflow: hidden;
  max-height: calc(100vh - 38px);
 `

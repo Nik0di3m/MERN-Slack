@@ -7,6 +7,7 @@ import styled from 'styled-components'
 import Header from './componentes/Header/Header';
 import Sidebar from './componentes/Sidebar/Sidebar.js';
 import db, { auth, provider } from './firebase';
+import Welcome from './componentes/Welcome/Welcome';
 
 
 function App() {
@@ -52,7 +53,7 @@ function App() {
                   <Chat user={user} />
                 </Route>
                 <Route path="/">
-                  Select or create channel
+                  <Welcome user={user} />
                 </Route>
               </Switch>
             </Main>
