@@ -1,6 +1,5 @@
 *{
   margin: 0;
-  max-height: 100vh;
 
 }
 body {
@@ -11,6 +10,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-y: hidden;
+  min-height: 100vh;
 }
 
 code {

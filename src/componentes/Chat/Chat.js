@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import InfoIcon from '@material-ui/icons/Info';
 import SendIcon from '@material-ui/icons/Send';
 import {
@@ -15,20 +15,39 @@ import {
 
 } from './ChatElements';
 import Message from './Message/Message';
+import db from '../../firebase';
+import { useParams } from 'react-router';
 
 
 
 
-const Chat = ({ channel }) => {
+const Chat = () => {
+
+    let { channelId } = useParams();
+
+    const [channel, setChannel] = useState();
+
+    const getChannel = () => {
+        db.collection('rooms')
+            .doc(channelId)
+            .onSnapshot((snap) => {
+                setChannel(snap.data())
+            })
+    }
+
+    useEffect(() => {
+        getChannel();
+    }, [channelId])
+
     return (
         <ChatContainer>
             <ChatHeader>
                 <ChatDescriptions>
                     <ChatRoom>
-                        <h3># Channel 1</h3>
+                        <h3># {channel.name}</h3>
                     </ChatRoom>
                     <ChatDesc>
-                        Make a 100k$ in a year!
+                        {channel.desc}
                     </ChatDesc>
                 </ChatDescriptions>
                 <ChatInfo>

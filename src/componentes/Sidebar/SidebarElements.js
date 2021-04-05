@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 export const SidebarContainer = styled.div`
     background: #3f0e40;
+    border-right: 1px solid #532753;
 `
 
 export const WorkspaceContainer = styled.div`
@@ -64,6 +65,19 @@ export const NewChanelContainer = styled.div`
     height: 20px;
     padding-left: 19px;
     padding-right: 12px;
+    border-bottom: 1px solid #532753;
+    padding-bottom: 6px;
+    
+
+    .MuiSvgIcon-root{
+        transition: all 100ms ease-in;
+    }
+    .MuiSvgIcon-root:hover{
+        background-color: white;
+        border-radius: 999px;
+        color: black;
+        cursor: pointer;
+    }
 
 `
 

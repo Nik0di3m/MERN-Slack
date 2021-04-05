@@ -5,8 +5,9 @@ export const ChatMessageContainer = styled.div`
     overflow-y: scroll;
     max-height: 80%;
     scrollbar-width: none;
-    .example::-webkit-scrollbar {
-  display: none;
+    ::-webkit-scrollbar {
+        display: none;
+    }
 
 `
 
@@ -23,6 +24,7 @@ export const ChatMessage = styled.div`
     flex-direction: column;
     background-color: #350d36;
     box-shadow: 0px 0px 9px 0px rgba(255,255,255,0.05);
+
 
     @media (max-width: 968px){
         max-width: 80%;

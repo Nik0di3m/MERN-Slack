@@ -6,12 +6,14 @@ import Login from './componentes/Login/Login';
 import styled from 'styled-components'
 import Header from './componentes/Header/Header';
 import Sidebar from './componentes/Sidebar/Sidebar.js';
-import db from './firebase';
+import db, { auth, provider } from './firebase';
 
 
 function App() {
 
   const [rooms, setRooms] = useState([])
+
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')))
 
   const getChannels = () => {
     db.collection('rooms').orderBy('name').onSnapshot((snap) => {
@@ -26,30 +28,39 @@ function App() {
 
   }, [])
 
-  console.log(rooms)
+  const signOut = () => {
+    auth.signOut().then(() => {
+      setUser(null)
+      localStorage.removeItem('user')
+    })
+  }
+
+
+  console.log(user)
 
 
   return (
-    //BEM naming convenction
     <div className="app">
       <Router>
-        <Container>
-          <Header />
-          <Main>
-            <Sidebar rooms={rooms} />
-            <Switch>
-              <Route path='/room'>
-                <Chat />
-              </Route>
-              <Route path="/room/channel1">
-                <Chat />
-              </Route>
-              <Route path="/">
-                <Login />
-              </Route>
-            </Switch>
-          </Main>
-        </Container>
+        {!user ?
+          <Login setUser={setUser} />
+          :
+          <Container>
+            <Header user={user} signOut={signOut} />
+            <Main>
+              <Sidebar rooms={rooms} />
+              <Switch>
+                <Route path='/room/:channelId'>
+                  <Chat />
+                </Route>
+                <Route path="/">
+                  Select or create channel
+                </Route>
+              </Switch>
+            </Main>
+          </Container>
+        }
+
       </Router>
     </div>
   )
