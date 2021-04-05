@@ -2,6 +2,11 @@ import styled from 'styled-components'
 
 export const ChatMessageContainer = styled.div`
     padding-left: 19px;
+    overflow-y: scroll;
+    max-height: 80%;
+    scrollbar-width: none;
+    .example::-webkit-scrollbar {
+  display: none;
 
 `
 

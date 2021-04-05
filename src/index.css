@@ -1,5 +1,7 @@
 *{
   margin: 0;
+  max-height: 100vh;
+
 }
 body {
   margin: 0;
@@ -8,6 +10,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-y: hidden;
 }
 
 code {

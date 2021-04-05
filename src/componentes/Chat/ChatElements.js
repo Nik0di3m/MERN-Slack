@@ -5,6 +5,8 @@ export const ChatContainer = styled.div`
  background-color: #19051a;
  color: white;
  position: relative;
+ overflow: hidden;
+ max-height: calc(100vh - 38px);
 `
 export const ChatHeader = styled.div`
     border: 1px solid #532753;
@@ -81,4 +83,5 @@ export const SendMessage = styled.div`
     justify-content: center;
     align-items: center;
     color: #350d36;
+    
 `

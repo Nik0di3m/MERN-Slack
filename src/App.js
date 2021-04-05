@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import './App.css';
 import Chat from './componentes/Chat/Chat';
@@ -6,9 +6,29 @@ import Login from './componentes/Login/Login';
 import styled from 'styled-components'
 import Header from './componentes/Header/Header';
 import Sidebar from './componentes/Sidebar/Sidebar.js';
+import db from './firebase';
 
 
 function App() {
+
+  const [rooms, setRooms] = useState([])
+
+  const getChannels = () => {
+    db.collection('rooms').orderBy('name').onSnapshot((snap) => {
+      setRooms(snap.docs.map((doc) => {
+        return { id: doc.id, name: doc.data().name }
+      }))
+    })
+  }
+
+  useEffect(() => {
+    getChannels();
+
+  }, [])
+
+  console.log(rooms)
+
+
   return (
     //BEM naming convenction
     <div className="app">
@@ -16,7 +36,7 @@ function App() {
         <Container>
           <Header />
           <Main>
-            <Sidebar />
+            <Sidebar rooms={rooms} />
             <Switch>
               <Route path='/room'>
                 <Chat />
