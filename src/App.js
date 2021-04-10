@@ -6,28 +6,15 @@ import Login from './componentes/Login/Login';
 import styled from 'styled-components'
 import Header from './componentes/Header/Header';
 import Sidebar from './componentes/Sidebar/Sidebar.js';
-import db, { auth, provider } from './firebase';
+import { auth } from './firebase';
 import Welcome from './componentes/Welcome/Welcome';
+
 
 
 function App() {
 
-  const [rooms, setRooms] = useState([])
 
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')))
-
-  const getChannels = () => {
-    db.collection('rooms').orderBy('name').onSnapshot((snap) => {
-      setRooms(snap.docs.map((doc) => {
-        return { id: doc.id, name: doc.data().name }
-      }))
-    })
-  }
-
-  useEffect(() => {
-    getChannels();
-
-  }, [])
 
   const signOut = () => {
     auth.signOut().then(() => {
@@ -47,7 +34,7 @@ function App() {
           <Container>
             <Header user={user} signOut={signOut} />
             <Main>
-              <Sidebar rooms={rooms} />
+              <Sidebar />
               <Switch>
                 <Route path='/room/:channelId'>
                   <Chat user={user} />
